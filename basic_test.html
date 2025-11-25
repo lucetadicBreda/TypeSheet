@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic p5.js Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body>
+    <script>
+        function setup() {
+            createCanvas(800, 600);
+        }
+        
+        function draw() {
+            background(255, 0, 0); // Red background
+            
+            // Big yellow circle
+            fill(255, 255, 0);
+            circle(400, 300, 200);
+            
+            // Black text
+            fill(0);
+            textSize(32);
+            textAlign(CENTER);
+            text("CAN YOU SEE THIS?", 400, 300);
+            
+            // Green rectangle
+            fill(0, 255, 0);
+            rect(100, 100, 200, 100);
+        }
+    </script>
+</body>
+</html>

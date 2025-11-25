@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Pixel Typography System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #00ff88;
+        }
+        
+        .header p {
+            margin: 10px 0;
+            color: #cccccc;
+        }
+        
+        #canvas-container {
+            border: 2px solid #333;
+            background: white;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+        }
+        
+        .controls {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #444;
+        }
+        
+        .controls h3 {
+            margin-top: 0;
+            color: #00ff88;
+        }
+        
+        .control-section {
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        
+        .control-btn, .size-btn {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 8px 16px;
+            margin: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .dropdown {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: 2px solid #00cc6a;
+            padding: 8px 12px;
+            margin: 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            min-width: 180px;
+        }
+        
+        .dropdown:focus {
+            outline: none;
+            border-color: #ffffff;
+            box-shadow: 0 0 5px #00ff88;
+        }
+        
+        .control-btn:hover, .size-btn:hover {
+            background: #00cc6a;
+            transform: translateY(-1px);
+        }
+        
+        .size-btn.active {
+            background: #ffffff;
+            color: #1a1a1a;
+        }        .control-section strong {
+            color: #ffaa00;
+        }
+        
+        .key {
+            background: #444;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .description {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #00ff88;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        
+        .feature-card h4 {
+            margin-top: 0;
+            color: #ffaa00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Advanced Pixel Typography System</h1>
+            <p>Fixed Grid • Variable Pixel Density • Distortion Effects</p>
+        </div>
+        
+        <div id="canvas-container"></div>
+        
+        <div class="controls">
+            <h3>Interactive Controls</h3>
+            
+            <div class="control-section">
+                <strong>Text Input:</strong> Type directly to change the displayed text
+            </div>
+            
+            <div class="control-section">
+                <strong>Font Controls:</strong>
+                <select id="fontDropdown" onchange="setFontFromDropdown()" class="dropdown">
+                    <option value="sans" selected>Sans Serif (Clean)</option>
+                    <option value="serif">Serif (Decorative)</option>
+                </select>
+                <button onclick="toggleFont()" class="control-btn">Toggle Font (F)</button>
+            </div>
+            
+            <div class="control-section">
+                <strong>Size Controls:</strong>
+                <select id="sizeDropdown" onchange="setSizeFromDropdown()" class="dropdown">
+                    <option value="small">Small (1x1 pixels)</option>
+                    <option value="medium" selected>Medium (2x2 pixels)</option>
+                    <option value="large">Large (3x3 pixels)</option>
+                </select>
+                <button onclick="cycleSize()" class="control-btn">Cycle Size (S)</button>
+            </div>
+            
+            <div class="control-section">
+                <strong>Distortion Effects:</strong>
+                <span class="key">1</span> None • 
+                <span class="key">2</span> Wave • 
+                <span class="key">3</span> Twist • 
+                <span class="key">4</span> Noise • 
+                <span class="key">5</span> Ripple
+            </div>
+            
+            <div class="control-section">
+                <strong>Visual Controls:</strong>
+                <span class="key">G</span> Toggle grid visibility • 
+                <span class="key">Mouse Wheel</span> Adjust distortion intensity
+            </div>
+            
+            <div class="control-section">
+                <strong>Text Editing:</strong>
+                <span class="key">Backspace</span> Delete characters • 
+                <span class="key">Any letter/number</span> Add to text
+            </div>
+        </div>
+        
+        <div class="description">
+            <h3>System Architecture</h3>
+            <p>This advanced pixel typography system implements a <strong>fixed grid approach with variable pixel density</strong>, where larger letters achieve their size by using more pixels within the same grid boundaries rather than expanding the grid itself.</p>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Multi-Density Rendering</h4>
+                <p><strong>Small:</strong> 1x1 pixel density (5x7 grid)<br>
+                <strong>Medium:</strong> 2x2 pixel density (9x12 grid)<br>
+                <strong>Large:</strong> 3x3 pixel density (15x18 grid)</p>
+                <p>Each size uses different pixel densities within the same grid cell, allowing for scalable typography without breaking grid boundaries.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4>Dual Typeface System</h4>
+                <p><strong>Sans Serif:</strong> Clean, geometric pixel style with straight edges and minimal decorative elements</p>
+                <p><strong>Serif:</strong> Traditional serif characteristics with small decorative strokes adapted to pixel format</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4>Advanced Distortion Engine</h4>
+                <p><strong>Wave:</strong> Horizontal sine wave distortion<br>
+                <strong>Twist:</strong> Radial rotation based on distance from center<br>
+                <strong>Noise:</strong> Perlin noise-based displacement<br>
+                <strong>Ripple:</strong> Concentric wave distortion</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4>Boundary Management</h4>
+                <p>Comprehensive bounds checking ensures all pixels remain within the canvas boundaries, even during extreme distortion effects.</p>
+                <p>Grid visualization helps understand the fixed-grid constraint system.</p>
+            </div>
+        </div>
+        
+        <div class="description">
+            <h3>Technical Implementation</h3>
+            <p>The system uses a <strong>matrix-based letter definition approach</strong> where each character is defined as a 2D boolean array. The pixel density system allows for:</p>
+            <ul>
+                <li><strong>Scalable Resolution:</strong> Higher densities create smoother, more detailed letters</li>
+                <li><strong>Consistent Spacing:</strong> Grid-based positioning ensures perfect alignment</li>
+                <li><strong>Distortion Compatibility:</strong> Mathematical transformations work on any density level</li>
+                <li><strong>Memory Efficiency:</strong> Compact boolean arrays for each character definition</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // UI Control Functions
+        function toggleFont() {
+            // Update both window and p5.js variables
+            if (typeof window.currentFont !== 'undefined') {
+                window.currentFont = (window.currentFont === "sans") ? "serif" : "sans";
+                if (typeof currentFont !== 'undefined') {
+                    currentFont = window.currentFont;
+                }
+            }
+            updateButtonStates();
+        }
+        
+        function cycleSize() {
+            // Update both window and p5.js variables
+            if (typeof window.currentSize !== 'undefined') {
+                if (window.currentSize === "small") window.currentSize = "medium";
+                else if (window.currentSize === "medium") window.currentSize = "large";
+                else window.currentSize = "small";
+                
+                if (typeof currentSize !== 'undefined') {
+                    currentSize = window.currentSize;
+                }
+            }
+            updateButtonStates();
+        }
+        
+        function setSize(size) {
+            window.currentSize = size;
+            if (typeof currentSize !== 'undefined') {
+                currentSize = size;
+            }
+            updateButtonStates();
+        }
+        
+        function setSizeFromDropdown() {
+            const dropdown = document.getElementById('sizeDropdown');
+            const size = dropdown.value;
+            setSize(size);
+        }
+        
+        function setFontFromDropdown() {
+            const dropdown = document.getElementById('fontDropdown');
+            const font = dropdown.value;
+            window.currentFont = font;
+            if (typeof currentFont !== 'undefined') {
+                currentFont = font;
+            }
+            updateButtonStates();
+        }
+        
+        function updateButtonStates() {
+            // Update dropdown selections
+            const sizeDropdown = document.getElementById('sizeDropdown');
+            if (sizeDropdown) {
+                sizeDropdown.value = window.currentSize;
+            }
+            
+            const fontDropdown = document.getElementById('fontDropdown');
+            if (fontDropdown) {
+                fontDropdown.value = window.currentFont;
+            }
+            
+            // Update button appearance based on current state
+            const sizeButtons = document.querySelectorAll('.size-btn');
+            sizeButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(window.currentSize)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update font button
+            const fontBtn = document.querySelector('.control-btn');
+            if (fontBtn && fontBtn.textContent.includes('Toggle Font')) {
+                fontBtn.textContent = `Toggle Font (F) - Current: ${window.currentFont}`;
+            }
+        }
+        
+        // Update button states when page loads
+        setTimeout(updateButtonStates, 500);
+    </script>
+    
+    <script src="advanced_pixel_typography.js"></script>
+</body>
+</html>

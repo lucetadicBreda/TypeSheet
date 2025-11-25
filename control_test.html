@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Control Test</title>
+    <style>
+        body { 
+            background: black; 
+            color: white; 
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        .big-dropdown {
+            background: lime;
+            color: black;
+            font-size: 20px;
+            padding: 15px;
+            width: 300px;
+            border: 5px solid yellow;
+            margin: 20px;
+        }
+        
+        .big-button {
+            background: red;
+            color: white;
+            font-size: 20px;
+            padding: 15px 30px;
+            border: none;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>CONTROL TEST</h1>
+    
+    <p>Size Control:</p>
+    <select class="big-dropdown" onchange="testChange()">
+        <option>Small Letters</option>
+        <option>Medium Letters</option>
+        <option>Large Letters</option>
+    </select>
+    
+    <br>
+    
+    <button class="big-button" onclick="testClick()">TEST BUTTON</button>
+    
+    <p id="status">Status: Ready</p>
+    
+    <script>
+        function testChange() {
+            document.getElementById('status').textContent = 'Dropdown changed!';
+        }
+        
+        function testClick() {
+            document.getElementById('status').textContent = 'Button clicked!';
+        }
+    </script>
+</body>
+</html>

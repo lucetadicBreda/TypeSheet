@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Typography with Controls</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        .controls-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(42, 42, 42, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #00ff88;
+            min-width: 250px;
+            z-index: 1000;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            color: #ffaa00;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .dropdown {
+            width: 100%;
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .status {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls-panel">
+        <h1>Controls</h1>
+        
+        <div class="control-group">
+            <label for="fontSelect">Font Type:</label>
+            <select id="fontSelect" class="dropdown" onchange="changeFont()">
+                <option value="sans">Sans Serif</option>
+                <option value="serif">Serif</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="sizeSelect">Letter Size:</label>
+            <select id="sizeSelect" class="dropdown" onchange="changeSize()">
+                <option value="small">Small (1x1) - Tiny</option>
+                <option value="medium" selected>Medium (3x3) - Normal</option>
+                <option value="large">Large (5x5) - HUGE</option>
+            </select>
+        </div>
+        
+        <div class="status">
+            <div>Font: <span id="currentFont">sans</span></div>
+            <div>Size: <span id="currentSize">medium</span></div>
+            <div>Text: <span id="currentText">HI</span></div>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 12px; color: #aaa;">
+            <strong>Keyboard:</strong><br>
+            F - Toggle Font<br>
+            S - Cycle Size<br>
+            Type to change text
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentText = "HI";
+        let currentFont = "sans";
+        let currentSize = "medium";
+        
+        function changeFont() {
+            const select = document.getElementById('fontSelect');
+            currentFont = select.value;
+            document.getElementById('currentFont').textContent = currentFont;
+        }
+        
+        function changeSize() {
+            const select = document.getElementById('sizeSelect');
+            currentSize = select.value;
+            document.getElementById('currentSize').textContent = currentSize;
+        }
+        
+        function updateStatus() {
+            document.getElementById('currentFont').textContent = currentFont;
+            document.getElementById('currentSize').textContent = currentSize;
+            document.getElementById('currentText').textContent = currentText;
+            document.getElementById('fontSelect').value = currentFont;
+            document.getElementById('sizeSelect').value = currentSize;
+        }
+        
+        // Initialize
+        updateStatus();
+    </script>
+    
+    <script src="advanced_pixel_typography.js"></script>
+</body>
+</html>

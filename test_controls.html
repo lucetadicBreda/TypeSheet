@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Size Controls</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a1a; color: white; }
+        .control-btn, .size-btn {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 8px 16px;
+            margin: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .size-btn.active {
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Size Controls Test</h1>
+    
+    <div>
+        <strong>Size Controls:</strong><br>
+        <button onclick="cycleSize()" class="control-btn">Cycle Size (S)</button>
+        <button onclick="setSize('small')" class="size-btn">Small (1x)</button>
+        <button onclick="setSize('medium')" class="size-btn">Medium (2x)</button>
+        <button onclick="setSize('large')" class="size-btn">Large (3x)</button>
+    </div>
+    
+    <p id="status">Current size: medium</p>
+    
+    <script>
+        window.currentSize = "medium";
+        
+        function cycleSize() {
+            if (window.currentSize === "small") window.currentSize = "medium";
+            else if (window.currentSize === "medium") window.currentSize = "large";
+            else window.currentSize = "small";
+            updateStatus();
+        }
+        
+        function setSize(size) {
+            window.currentSize = size;
+            updateStatus();
+        }
+        
+        function updateStatus() {
+            document.getElementById('status').textContent = 'Current size: ' + window.currentSize;
+            
+            const sizeButtons = document.querySelectorAll('.size-btn');
+            sizeButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(window.currentSize)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        updateStatus();
+    </script>
+</body>
+</html>
